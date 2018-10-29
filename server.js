@@ -9,7 +9,6 @@ mongoose.connect('mongodb://localhost:27017/rsvp', {useNewUrlParser: true});
 const app = express();
 app.set('view engine', 'pug');
 app.use(express.static('public'));
-// app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -34,7 +33,7 @@ app.post('/reply', (req, res) => {
 });
 
 app.get('/guests', (req, res) => {
-    const Guests = EventResponse.find().then((eventResponses) => {
+    EventResponse.find().then((eventResponses) => {
         const attending = eventResponses.filter(eventResponse => eventResponse.attending)
                 .map(eventResponse => eventResponse.name);
         const notAttending = eventResponses.filter(eventResponse => !eventResponse.attending)
